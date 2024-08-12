@@ -33,7 +33,7 @@ def bet():
     while True:
         amount=input("Enter the amount to bet= $")
         if amount.isdigit() and (MIN_BET<= int(amount) <=MAX_BET):
-            return amount
+            return int(amount)
         else:
             print(f"Invalid amount to bet\n amount need to be between {MIN_BET} and {MAX_BET}")
 
@@ -42,28 +42,55 @@ def winnig_line():
     l=[str(random.randint(1,3)),str(random.randint(1,3)),str(random.randint(1,3))]
     return l
 
-def result():
-    winning=winnig_line()
-    user_line=line()
+def result(winning,user_line):
     line_match_count=0
     for comp,user in zip(winning,user_line):
         if comp==user:
             line_match_count+=1
     return line_match_count
 
-def amount_won():
-    correct_guess=result()
+def amount_won(c):
+    
     total_prize=1
-    if correct_guess==3:
+    if c==3:
         total_prize*=100
-    elif correct_guess==2:
+    elif c==2:
         total_prize*=50
     else:
         total_prize*=0
     return total_prize
 
+
 def main():
     print("Welcome to Slot machine")
+    while True:
+        print("1) start game")
+        print("2) End")
+        choice=int(input("option="))
+        if choice==1:
+            balance=deposit()
+            winning_line=winnig_line()
+            user_line=line()
+            while True:
+                amount=bet()
+                if amount>balance:
+                    print("balance is not enough {balance}")
+                else: 
+                    break
+            correct_guess=result(winning_line,user_line)
+            print(f"Winning line:{winning_line}")
+            print(f"user line:{user_line}")
+
+            winning_amount=amount_won(correct_guess)
+            print(f"you won {winning_amount}$")
+            balance=winning_amount+balance-amount
+            print(f"balance={balance}")
+        elif choice==2:
+            break
+        else:
+            print("invalid")
+
+main()
     
 
 
@@ -74,14 +101,7 @@ def main():
 
 
 
-li=["1","2","3"]
-li1=["1","2","1"]
-c=0
-for a,b in zip(li,li1):
-    if a==b:
-        c+=1
-print(c)
-print(a)
+
 
 
 

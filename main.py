@@ -68,7 +68,6 @@ def result(winning,user_line):
     for comp,user in zip(winning,user_line):
         if comp==user:
             line_match_count+=1
-    print("line match=",line_match_count)
     return line_match_count
 
 def amount_won(c,amount_bet):
@@ -105,6 +104,8 @@ def spin_slot(balance):
             break
     correct_guess=result(winning_line,user_line)
     time.sleep(1)
+    print("it is spinninggggg")
+    time.sleep(1)
     print(f"Winning line")
     time.sleep(1)
     for i in winning_line:
@@ -113,7 +114,8 @@ def spin_slot(balance):
     print(f"user line:")
     for i in user_line:
         print(i)
-
+    time.sleep(1)
+    print(f"Correct line count = {correct_guess}")
     winning_amount=amount_won(correct_guess,amount)
     time.sleep(1)
     print(f"you won {winning_amount}$")
